@@ -175,13 +175,49 @@ fn mutate(population: &mut Population, rng: &mut ThreadRng) {
 
 The project includes functionality to plot the evolution of the best fitness value over generations, helping visualize the algorithm's convergence.
 
-## Parameter Tuning
+## Possible Tweaks and Enhancements
 
-Several parameters can be adjusted to optimize the algorithm's performance:
-- `population_size`: Number of individuals in each generation
-- `generations`: Number of evolutionary iterations
-- `n_selection`: Number of parents selected for reproduction
-- `n_elite`: Number of top individuals preserved between generations
+The genetic algorithm implementation can be customized and improved in various ways to better address the knapsack problem. Here are several modifications worth exploring:
+
+### Parameter Tuning
+
+Fine-tuning these parameters can significantly impact algorithm performance:
+
+- **Population Size**: Larger populations increase diversity but require more computational resources. Try values between 50-500.
+- **Number of Generations**: More generations allow for further evolution but increase runtime. Experiment with 100-1000 generations.
+- **Selection Size**: Adjusting how many parents are selected affects selection pressure. Start with 20-40% of population size.
+- **Elite Count**: Higher values preserve more good solutions but may reduce diversity. Try keeping 10-20% of the population as elites.
+- **Mutation Rate**: Currently fixed at one mutation per individual. Consider making this a probability per bit (e.g., 1-5%).
+
+### Alternative Selection Methods
+
+- **Tournament Selection**: Randomly select k individuals (typically 2-7) and choose the best one as a parent. This approach offers controllable selection pressure through tournament size and works well even when fitness values vary widely.
+
+- **Rank Selection**: Assign selection probability based on the rank of individuals rather than their actual fitness values. This reduces selection pressure when fitness differences are extreme and helps maintain diversity.
+
+- **Elitism Selection**: Select only the best inidivuals in the population. With this approach we can often fall into a local best solution and never be diverse enough to find global bests.
+
+### Alternative Crossover Methods
+
+- **Two-Point Crossover**: Select two random points and exchange the segment between them. This preserves more building blocks than single-point crossover.
+
+- **Uniform Crossover**: For each bit position, randomly select which parent contributes its bit to the child. This allows for more thorough mixing of genetic material.
+
+- **Ordered Crossover**: Particularly useful if the order of items becomes important in more complex variants of the knapsack problem.
+
+- **Adaptive Crossover**: Dynamically adjust crossover points or probabilities based on the fitness of solutions.
+
+- **Arithmetic Crossover**: Apply some kind of mathematical operations on parents, the results will be new children.
+
+### Alternative Mutation Methods
+
+- **Bit-Flip Probability**: Instead of always flipping one bit, assign a probability (e.g., 1/n where n is the number of items) of flipping each bit.
+
+- **Adaptive Mutation**: Increase mutation rates when the population converges to avoid premature convergence, decrease when diversity is high.
+
+- **Swap Mutation**: Exchange the values of two randomly selected positions, maintaining the same number of selected items.
+
+- **Inversion Mutation**: Select two points and reverse the sequence of bits between them.
 
 ## Usage
 
