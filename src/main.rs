@@ -3,7 +3,8 @@ use rand::rngs::ThreadRng;
 use rand::seq::SliceRandom;
 use rand::Rng;
 use std::time::Instant;
-
+use std::sync::{Arc, atomic::{AtomicUsize, Ordering}};
+use std::thread;
 #[derive(Debug, Clone)]
 struct Item {
     name: String,
@@ -193,6 +194,27 @@ fn main() {
     println!("Time elapsed: {:?}", duration);
 
     plot_history(&history, "fitness_history.png").expect("Plotting failed");
+
+    let counter = Arc::new(AtomicUsize::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter_clone = Arc::clone(&counter);
+
+        let handle = thread::spawn(move || {
+            for _ in 0..1000 {
+                counter_clone.fetch_add(1, Ordering::Relaxed);
+            }
+        });
+
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!("Final counter value: {}", counter.load(Ordering::Relaxed));
 }
 
 fn genetic_algorithm(
