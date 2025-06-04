@@ -219,6 +219,33 @@ Fine-tuning these parameters can significantly impact algorithm performance:
 
 - **Inversion Mutation**: Select two points and reverse the sequence of bits between them.
 
+## Installation
+
+To install Rust, follow these steps:
+
+1. **Install Rust**:
+   - Visit the [official Rust website](https://forge.rust-lang.org/infra/other-installation-methods.html) and follow the instructions for your platform.
+   - Alternatively, run the following command in your terminal to install Rust using `rustup`:
+     ```bash
+     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+     ```
+   - Follow the on-screen instructions to complete the installation.
+
+2. **Verify Installation**:
+   - After installation, verify Rust is installed by running:
+     ```bash
+     rustc --version
+     ```
+   - This should display the installed Rust version.
+
+3. **Screenshots**:
+   - Example of Rust installation verification:
+     ![Rust Installation](docs/rustc_version.png)
+   - Example of Cargo verification:
+     ![Cargo Installation](docs/cargo_version.png)
+
+---
+
 ## Usage
 
 To run the algorithm:
